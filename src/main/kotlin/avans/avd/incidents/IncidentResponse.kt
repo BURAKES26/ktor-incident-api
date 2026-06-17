@@ -10,7 +10,7 @@ data class IncidentResponse(
 
     val category: Category,
     val description: String,
-
+    val licensePlateNumber: String? = null,
     val latitude: Double,
     val longitude: Double,
 

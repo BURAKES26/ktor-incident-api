@@ -30,7 +30,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
                 "At this corner 2 lights are broken",
                 51.59051650746655,
                 4.812002566502519,
-                Priority.NORMAL
+                Priority.MEDIUM
             )
         )
         create(
@@ -40,7 +40,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
                 "noise disturbance from illegal party",
                 51.58218477578439,
                 4.835727885428926,
-                Priority.NORMAL
+                Priority.MEDIUM
             )
         )
         create(
@@ -61,7 +61,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
                 "Loose paving stones causing trips near playground",
                 51.5921,
                 4.7789,
-                Priority.NORMAL,
+                Priority.MEDIUM,
                 Status.REPORTED
             )
         )
@@ -83,7 +83,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
                 "Illegal dumping: several garbage bags in the bushes",
                 51.5945,
                 4.7923,
-                Priority.NORMAL,
+                Priority.MEDIUM,
                 Status.REPORTED
             )
         )
@@ -128,7 +128,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
                 "Streetlight out along park path; dark spot reported by residents",
                 51.5876,
                 4.7805,
-                Priority.NORMAL,
+                Priority.MEDIUM,
                 Status.REPORTED
             )
         )
@@ -139,7 +139,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
                 "Fallen branch blocking part of the bike lane; cleared by contractor",
                 51.5930,
                 4.7872,
-                Priority.NORMAL,
+                Priority.MEDIUM,
                 Status.RESOLVED
             )
         )

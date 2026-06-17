@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 data class UpdateIncidentRequest(
     val category: Category? = null,
     val description: String? = null,
+    val licensePlateNumber: String? = null,
     val latitude: Double? = null,
     val longitude: Double? = null,
     // the property status and incident cannot be changed bij am update request

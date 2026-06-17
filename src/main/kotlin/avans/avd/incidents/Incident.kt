@@ -6,7 +6,7 @@ import kotlin.time.Duration.Companion.hours
 import kotlin.time.Instant
 
 enum class Priority {
-    LOW, NORMAL, HIGH, CRITICAL
+    LOW, MEDIUM, HIGH, CRITICAL
 }
 
 enum class Status { REPORTED, ASSIGNED, RESOLVED }
@@ -47,7 +47,7 @@ data class Incident(
             // Apply the appropriate duration based on priority
             return when (priority) {
                 Priority.LOW -> createdAt.plus(42.days)  // 6 weeks = 42 days
-                Priority.NORMAL -> createdAt.plus(7.days)  // 1 week = 7 days
+                Priority.MEDIUM -> createdAt.plus(7.days)  // 1 week = 7 days
                 Priority.HIGH -> createdAt.plus(3.days)
                 Priority.CRITICAL -> createdAt.plus(12.hours)
             }
