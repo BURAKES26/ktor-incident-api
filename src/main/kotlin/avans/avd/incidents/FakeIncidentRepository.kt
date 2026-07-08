@@ -1,6 +1,9 @@
 package avans.avd.incidents
 
 import avans.avd.core.BaseInMemoryRepository
+import avans.avd.utils.currentInstant
+import kotlin.random.Random
+import kotlin.time.Duration.Companion.days
 
 object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepository<Long> {
     override val items = mutableListOf<Incident>()
@@ -12,7 +15,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
 
     // Seed the fake repository with some fake data
     init {
-        create(
+        createWithRandomDates(
             Incident(
                 3, /*Anne*/
                 Category.TRAFFIC,
@@ -23,7 +26,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
                 Status.ASSIGNED,
             )
         )
-        create(
+        createWithRandomDates(
             Incident(
                 2 /*Henk*/,
                 Category.COMMUNAL,
@@ -33,7 +36,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
                 Priority.MEDIUM
             )
         )
-        create(
+        createWithRandomDates(
             Incident(
                 2 /*Henk*/,
                 Category.COMMUNAL,
@@ -43,7 +46,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
                 Priority.MEDIUM
             )
         )
-        create(
+        createWithRandomDates(
             Incident(
                 3 /*Anne*/,
                 Category.ENVIRONMENT,
@@ -54,7 +57,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
             )
         )
         // Newly added realistic incidents around Breda (within ~3km radius of 51.5898, 4.7832)
-        create(
+        createWithRandomDates(
             Incident(
                 7 /*Bram*/,
                 Category.COMMUNAL,
@@ -65,7 +68,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
                 Status.REPORTED
             )
         )
-        create(
+        createWithRandomDates(
             Incident(
                 8 /*Fatima*/,
                 Category.TRAFFIC,
@@ -76,7 +79,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
                 Status.ASSIGNED
             )
         )
-        create(
+        createWithRandomDates(
             Incident(
                 9 /*Lotte*/,
                 Category.ENVIRONMENT,
@@ -87,7 +90,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
                 Status.REPORTED
             )
         )
-        create(
+        createWithRandomDates(
             Incident(
                 null /*anonymous*/,
                 Category.CRIME,
@@ -98,7 +101,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
                 Status.REPORTED
             )
         )
-        create(
+        createWithRandomDates(
             Incident(
                 null /*anonymous*/,
                 Category.OTHER,
@@ -110,7 +113,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
             )
         )
         // Additional incidents reported by existing official Ron (id = 6)
-        create(
+        createWithRandomDates(
             Incident(
                 6 /*Ron - OFFICIAL*/,
                 Category.TRAFFIC,
@@ -121,7 +124,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
                 Status.ASSIGNED
             )
         )
-        create(
+        createWithRandomDates(
             Incident(
                 6 /*Ron - OFFICIAL*/,
                 Category.COMMUNAL,
@@ -132,7 +135,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
                 Status.REPORTED
             )
         )
-        create(
+        createWithRandomDates(
             Incident(
                 6 /*Ron - OFFICIAL*/,
                 Category.ENVIRONMENT,
@@ -143,7 +146,7 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
                 Status.RESOLVED
             )
         )
-        create(
+        createWithRandomDates(
             Incident(
                 6 /*Ron - OFFICIAL*/,
                 Category.OTHER,
@@ -155,6 +158,19 @@ object FakeIncidentRepository : BaseInMemoryRepository<Incident>(), IncidentRepo
             )
         )
     }
+
+    private fun createWithRandomDates(incident: Incident): Incident {
+        val createdAt = currentInstant().minus(Random.nextInt(0, 7).days)
+
+        return create(
+            incident.copy(
+                createdAt = createdAt,
+                updatedAt = createdAt,
+                completedAt = if (incident.isResolved) currentInstant() else null
+            )
+        )
+    }
+
     // IncidentRepository-specific functionality:
     override suspend fun findIncidentsForUser(userID: Long): List<Incident> =
         items.filter { it.reportedBy == userID }
